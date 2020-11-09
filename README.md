@@ -1,1 +1,1 @@
-# ProjetoFinalDesSoft
+Blackjack feito para o projeto da matéria Design de Software pelo primeiro semestre do curso de engenharia do INSPER, feito pelos alunos Guilherme Fontana Louro, Pedro Altobelli Teixeira Pinto e Rodrigo Lee.

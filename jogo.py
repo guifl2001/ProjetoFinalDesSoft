@@ -6,7 +6,7 @@ pygame.init()
 
 # ----- Gera tela principal
 window = pygame.display.set_mode((500, 400))
-pygame.display.set_caption('Jogo da rapa')
+pygame.display.set_caption('Black Jack')
 
 # ----- Inicia estruturas de dados
 game = True

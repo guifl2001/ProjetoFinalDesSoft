@@ -77,36 +77,41 @@ while True:
     jogador = [0] * j
     while v < j:
         if maos_jogadores[v][0][0] == 'A':
-            pont1 = 1
+            pont1 = 11
         elif maos_jogadores[v][0][0] == '10' or maos_jogadores[v][0][0] == 'J' or maos_jogadores[v][0][0] == 'Q' or maos_jogadores[v][0][0] == 'K':
-            pont1 = 0
+            pont1 = 10
         elif int(maos_jogadores[v][0][0]) < 10:
             pont1 = int(maos_jogadores[v][0][0])
 
         if maos_jogadores[v][1][0] == 'A':
-            pont2 = 1
+            pont2 = 11
         elif maos_jogadores[v][1][0] == '10' or maos_jogadores[v][1][0] == 'J' or maos_jogadores[v][1][0] == 'Q' or maos_jogadores[v][1][0] == 'K':
-            pont2 = 0
+            pont2 = 10
         elif int(maos_jogadores[v][1][0]) < 10:
             pont2 = int(maos_jogadores[v][1][0])
         jogador[v] = pont1 + pont2
+        if jogador[v] >= 22 and pont1 == 11 or pont2 == 11:
+            jogador[v] -= 10
         v += 1
 
     # colocando valores nas cartas do banco:
     if mao_banco[0][0] == 'A':
-        pontu1 = 1
+        pontu1 = 11
     elif mao_banco[0][0] == '10' or mao_banco[0][0] == 'J' or mao_banco[0][0] == 'Q' or mao_banco[0][0] == 'K':
-        pontu1 = 0
+        pontu1 = 10
     elif int(mao_banco[0][0]) < 10:
         pontu1 = int(mao_banco[0][0])
 
     if mao_banco[1][0] == 'A':
-        pontu2 = 1
+        pontu2 = 11
     elif mao_banco[1][0] == '10' or mao_banco[1][0] == 'J' or mao_banco[1][0] == 'Q' or mao_banco[1][0] == 'K':
-        pontu2 = 0
+        pontu2 = 10
     elif int(mao_banco[1][0]) < 10:
         pontu2 = int(mao_banco[1][0])
     banco = pontu1 + pontu2
+    if banco >= 22 and pont1 == 11 or pont2 == 11:
+        banco -= 10
+    
 
     # Definindo a pontuação
 
@@ -116,15 +121,11 @@ while True:
     j_venceu = [False] * j
     b_venceu = False
     while f < j:
-        if jogador[f] >= 10:
-            jogador[f] -= 10
-        if jogador[f] == 9 or jogador[f] == 8:
+        if jogador[f] == 21:
             print('O jogador {0} alcançou a pontuação desejada' .format(f + 1))
             j_venceu[f] = True
         f += 1
-    if banco >= 10:
-        banco -= 10
-    if banco == 9 or banco == 8:
+    if banco == 21:
         print('O banco alcançou a pontuação desejada')
         b_venceu = True
 
@@ -134,19 +135,20 @@ while True:
     vencedor = False
     terceira_carta = False
     while s < j:
-        if jogador[s] < 6 and b_venceu == False and vencedor == False:
-            print('Você tem {0} pontos. Vamos lhe dar mais uma carta!' .format(jogador[s]))
-            terceira_carta = True
-            maos_jogadores[s] += baralho[(j + s + 2) * 2]
-            time.sleep(2)
-            print("Sua carta é {0}" .format(maos_jogadores[s][2]))
-            if maos_jogadores[s][2][0] == 'A':
-                pont3 = 1
-            elif maos_jogadores[s][2][0] == '10' or maos_jogadores[s][2][0] == 'J' or maos_jogadores[s][2][0] == 'Q' or maos_jogadores[s][2][0] == 'K':
-                pont3 = 0
-            elif int(maos_jogadores[s][2][0]) < 10:
-                pont3 = int(maos_jogadores[s][2][0])
-            jogador[s] += pont3
+        if jogador[s] < 21 and b_venceu == False and vencedor == False:
+            carta = input('O jogador {0} deseja comprar mais uma carta?' .format(s+1))
+            if carta == 'sim':
+                terceira_carta = True
+                maos_jogadores[s] += baralho[(j + s + 2) * 2]
+                time.sleep(2)
+                print("Sua carta é {0}" .format(maos_jogadores[s][2]))
+                if maos_jogadores[s][2][0] == 'A':
+                    pont3 = 1
+                elif maos_jogadores[s][2][0] == '10' or maos_jogadores[s][2][0] == 'J' or maos_jogadores[s][2][0] == 'Q' or maos_jogadores[s][2][0] == 'K':
+                    pont3 = 0
+                elif int(maos_jogadores[s][2][0]) < 10:
+                    pont3 = int(maos_jogadores[s][2][0])
+                jogador[s] += pont3
         if jogador[s] == 9 or jogador[s] == 8 and j_venceu[s] == False:
             print('O jogador {0} alcançou a pontuação desejada' .format(s + 1))
             j_venceu[s] = True

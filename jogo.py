@@ -74,6 +74,9 @@ rainha_de_paus = pygame.image.load('pasta_de_cartas/Rainha_de_paus.PNG').convert
 valete_de_paus = pygame.image.load('pasta_de_cartas/Valete_de_paus.PNG').convert()
 as_de_paus = pygame.image.load('pasta_de_cartas/As_de_paus (2).PNG').convert()
 
+#carta de costas e baralho
+carta_costas = pygame.image.load('BARALHO/carta_de_costas.PNG').convert()
+baralho = pygame.image.load('BARALHO/Baralho.PNG').convert()
 
 # ===== Loop principal =====
 while game:

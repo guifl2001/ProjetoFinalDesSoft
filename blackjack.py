@@ -106,51 +106,50 @@ while True:
     while jogador < 21 and b_venceu == False and nao == False:
         resp = input('Você tem {0} pontos. Deseja mais uma carta?' .format(jogador))
         if resp == 'sim':
-            mao_jogador += baralho[i + 3]
+            mao_jogador += baralho[i + 4]
             time.sleep(2)
-            print("Sua carta é {0}" .format(mao_jogador[(i + 2)][0]))
-            if mao_jogador[(i + 2)][0] == 'A' and jogador > 10:
-                pont3 = 1
-            if mao_jogador[(i + 2)][0] == 'A' and jogador <= 10:
-                pont3 = 11
-            elif mao_jogador[(i + 2)][0] == '10' or mao_jogador[(i + 2)][0] == 'J' or mao_jogador[(i + 2)][0] == 'Q' or mao_jogador[(i + 2)][0] == 'K':
-                pont3 = 10
-            elif int(mao_jogador[(i + 2)][0]) < 10:
-                pont3 = int(mao_jogador[(i + 2)][0])
-            jogador += pont3
-            if jogador > 21 and (mao_jogador[0][0] == 'A' or mao_jogador[1][0] == 'A'):
-                jogador -= 10
-            i += 1
+            print("Sua carta é {0}" .format(mao_jogador[(i + 2)]))
+            if mao_jogador[(i + 2)] == 'A' and jogador > 10:
+                pont = 1
+            if mao_jogador[(i + 2)] == 'A' and jogador <= 10:
+                pont = 11
+            elif mao_jogador[(i + 2)] == '10' or mao_jogador[(i + 2)] == 'J' or mao_jogador[(i + 2)] == 'Q' or mao_jogador[(i + 2)] == 'K':
+                pont = 10
+            elif int(mao_jogador[(i + 2)]) < 10:
+                pont = int(mao_jogador[(i + 2)])
+            jogador += pont
+            i += 2
         else:
             nao = True
     if jogador == 21 and b_venceu == False:
         print('BlackJack!')
         j_venceu = True
-    elif jogador > 21:
+    elif jogador > 21 and (mao_jogador[0][0] == 'A' or mao_jogador[1][0] == 'A'):
+        jogador -= 10
+    if jogador > 21:
         print('O jogador ultrapassou a pontuação desejada')
     time.sleep(1)
 
     f = 0
-    while banco < 16 or (banco < jogador and jogador < 21) and j_venceu == False:
-        mao_banco += baralho[f + i + 3]
+    while banco < 16 or banco < jogador and jogador < 21 and j_venceu == False:
+        mao_banco += baralho[f + i + 4]
         time.sleep(2)
-        print("A carta do banco é {0}" .format(mao_banco[(f + 2)]))
-        if mao_banco[(f + 2)][0] == 'A' and banco > 10:
-            pont3 = 1
-        elif mao_banco[(f + 2)][0] == 'A' and banco <= 10:
-            pont3 = 11
-        elif mao_banco[(f + 2)][0] == '10' or mao_banco[(f + 2)][0] == 'J' or mao_banco[(f + 2)][0] == 'Q' or mao_banco[(f + 2)][0] == 'K':
-            pont3 = 10
-        elif int(mao_banco[(f + 2)][0]) < 10:
-            pont3 = int(mao_banco[(f + 2)][0])
-        banco += pont3
-        if banco > 21 and (mao_banco[0][0] == 'A' or mao_banco[1][0] == 'A'):
-            banco -= 10
-        print("O banco tem {0} pontos" .format(banco))
-        f += 1
+        print("O banco tem {0} pontos. A carta do banco é {1}" .format(banco, mao_banco[(f + 2)]))
+        if mao_banco[(f + 2)] == 'A' and banco > 10:
+            pont = 1
+        elif mao_banco[(f + 2)] == 'A' and banco <= 10:
+            pont = 11
+        elif mao_banco[(f + 2)] == '10' or mao_banco[(f + 2)] == 'J' or mao_banco[(f + 2)] == 'Q' or mao_banco[(f + 2)] == 'K':
+            pont = 10
+        elif int(mao_banco[(f + 2)]) < 10:
+            pont = int(mao_banco[(f + 2)])
+        banco += pont
+        f += 2
     if banco == 21 and b_venceu == False:
         print('O banco ganhou!')
         b_venceu = True
+    elif banco > 21 and (mao_banco[0][0] == 'A' or mao_banco[1][0] == 'A'):
+        banco -= 10
     if banco > 21:
         print('O banco ultrapassou a pontuação desejada')
     time.sleep(1)

@@ -3,17 +3,22 @@
 import pygame
 
 pygame.init()
-
+WIDTH = 500
+HEIGHT = 500
 # ----- Gera tela principal
-window = pygame.display.set_mode((1920, 1080))
+window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Black Jack')
 
 # ----- Inicia estruturas de dados
 game = True
+posicao_1_carta_jogador = [300,300]
+posicao_2_carta_jogador = [300,300]
+posicao_3_carta_jogador = [300,300]
 
 # ----- Inicia assets
 font = pygame.font.SysFont(None, 48)
 text = font.render('Salve rapa', True, (0, 0, 255))
+
 #cartas de copas
 dois_de_copas = pygame.image.load('pasta_de_cartas/2_de_copas.PNG').convert()
 tres_de_copas = pygame.image.load('pasta_de_cartas/3_de_copas.PNG').convert()
@@ -133,7 +138,7 @@ class carta_pra_cima_posicao3(pygame.sprite.Sprite):
 FPS = 30
 clock = pygame.time.Clock()
 
-#criando sprites
+#criando val de copas
 all_sprites = pygame.sprite.Group()
 valcopas = carta_pra_cima_posicao1(valete_de_copas)
 rainhacopas = carta_pra_cima_posicao2(rainha_de_copas)
@@ -142,22 +147,20 @@ all_sprites.add(valcopas)
 all_sprites.add(rainhacopas)
 all_sprites.add(reicopas)
 
-
-#carta de costas e baralho
-carta_costas = pygame.image.load('BARALHO/carta_de_costas.PNG').convert()
-baralho = pygame.image.load('BARALHO/Baralho.PNG').convert()
-
 # ===== Loop principal =====
 while game:
+    clock.tick(FPS)
     # ----- Trata eventos
     for event in pygame.event.get():
         # ----- Verifica consequências
         if event.type == pygame.QUIT:
             game = False
 
+    # ----- Atualiza estado do jogo
+    # Atualizando a posição dos meteoros
+    all_sprites.update()
     # ----- Gera saídas
-    window.fill((0, 255, 255))  # Preenche com a cor branca
-    window.blit(text, (10, 10))
+    window.fill((255, 255, 255))  # Preenche com a cor branca
     all_sprites.draw(window)
 
     # ----- Atualiza estado do jogo

@@ -84,15 +84,15 @@ class carta_pra_cima_posicao1(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.x = 0
-        self.rect.y = 0
+        self.rect.x = 10
+        self.rect.y = 10
         self.speedx = 0
         self.speedy = 10
     def update(self):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
         if self.rect.y > posicao_1_carta_jogador[1] :
-            self.rect.x = 0
+            self.rect.x = 10
             self.rect.y = 300
         
 
@@ -161,7 +161,9 @@ while game:
     all_sprites.update()
     # ----- Gera saídas
     window.fill((255, 255, 255))  # Preenche com a cor branca
+    pygame.draw.rect(window,(0,128,0),(0, 280, 500, 300))
     all_sprites.draw(window)
+    
 
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador

@@ -74,6 +74,75 @@ rainha_de_paus = pygame.image.load('pasta_de_cartas/Rainha_de_paus.PNG').convert
 valete_de_paus = pygame.image.load('pasta_de_cartas/Valete_de_paus.PNG').convert()
 as_de_paus = pygame.image.load('pasta_de_cartas/As_de_paus (2).PNG').convert()
 
+class carta_pra_cima_posicao1(pygame.sprite.Sprite):
+    def __init__(self,img):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = 0
+        self.rect.y = 0
+        self.speedx = 0
+        self.speedy = 10
+    def update(self):
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+        if self.rect.y > posicao_1_carta_jogador[1] :
+            self.rect.x = 0
+            self.rect.y = 300
+        
+
+class carta_pra_cima_posicao2(pygame.sprite.Sprite):
+    def __init__(self,img):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = 0
+        self.rect.y = 0
+        self.speedx = 5
+        self.speedy = 10
+    def update(self):
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+        if self.rect.y > posicao_2_carta_jogador[1] :
+            self.rect.x = 150
+            self.rect.y = 300
+        
+       
+
+
+class carta_pra_cima_posicao3(pygame.sprite.Sprite):
+    def __init__(self,img):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = 0
+        self.rect.y = 0
+        self.speedx = 10
+        self.speedy = 10
+    def update(self):
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+        if self.rect.y > posicao_3_carta_jogador[1]:
+            self.rect.x = 300
+            self.rect.y = 300
+        
+        
+
+
+
+FPS = 30
+clock = pygame.time.Clock()
+
+#criando sprites
+all_sprites = pygame.sprite.Group()
+valcopas = carta_pra_cima_posicao1(valete_de_copas)
+rainhacopas = carta_pra_cima_posicao2(rainha_de_copas)
+reicopas = carta_pra_cima_posicao3(rei_de_copas)
+all_sprites.add(valcopas)
+all_sprites.add(rainhacopas)
+all_sprites.add(reicopas)
+
+
 #carta de costas e baralho
 carta_costas = pygame.image.load('BARALHO/carta_de_costas.PNG').convert()
 baralho = pygame.image.load('BARALHO/Baralho.PNG').convert()
@@ -89,6 +158,7 @@ while game:
     # ----- Gera saídas
     window.fill((0, 255, 255))  # Preenche com a cor branca
     window.blit(text, (10, 10))
+    all_sprites.draw(window)
 
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador

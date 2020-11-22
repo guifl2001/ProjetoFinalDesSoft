@@ -15,10 +15,6 @@ posicao_1_carta_jogador = [300,300]
 posicao_2_carta_jogador = [300,300]
 posicao_3_carta_jogador = [300,300]
 
-# ----- Inicia assets
-font = pygame.font.SysFont(None, 48)
-text = font.render('Salve rapa', True, (0, 0, 255))
-
 #cartas de copas
 dois_de_copas = pygame.image.load('pasta_de_cartas/2_de_copas.PNG').convert()
 tres_de_copas = pygame.image.load('pasta_de_cartas/3_de_copas.PNG').convert()
@@ -147,26 +143,76 @@ all_sprites.add(valcopas)
 all_sprites.add(rainhacopas)
 all_sprites.add(reicopas)
 
+# colors 
+white = (255, 255, 255) 
+green = (0, 255, 0) 
+blue = (0, 0, 128)
+
+display_surface = pygame.display.set_mode((WIDTH, HEIGHT))
+
+# defining a font 
+smallfont = pygame.font.SysFont('Corbel',35)
+
+# light shade of the button 
+color_light = (170,170,170) 
+  
+# dark shade of the button 
+color_dark = (100,100,100)
+
+# rendering a text written in 
+# this font 
+Quit = smallfont.render('quit' , True , white)
+Iniciar = smallfont.render('Iniciar' , True , white)
+Blackjack = smallfont.render('BlackJack' , True , white)
+
+
+# text surface object 
+textRect = Blackjack.get_rect()  
+  
+# set the center of the rectangular object. 
+textRect.center = (WIDTH // 2, HEIGHT // 4) 
+
 # ===== Loop principal =====
 while game:
     clock.tick(FPS)
     # ----- Trata eventos
     for event in pygame.event.get():
         # ----- Verifica consequências
-        if event.type == pygame.QUIT:
-            game = False
-
-    # ----- Atualiza estado do jogo
-    # Atualizando a posição dos meteoros
-    all_sprites.update()
+        if event.type == pygame.MOUSEBUTTONDOWN: 
+              
+            #if the mouse is clicked on the 
+            # botão fechar o jogo
+            if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
+                window.fill(white)
+            if WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:
+                pygame.quit()
+            # botão de começar o jogo
     # ----- Gera saídas
-    window.fill((255, 255, 255))  # Preenche com a cor branca
-    pygame.draw.rect(window,(0,128,0),(0, 280, 500, 300))
-    all_sprites.draw(window)
+    window.fill(green)
+    
+    display_surface.blit(Blackjack, textRect) 
+
+    
+    # Cria posição do mouse
+    mouse = pygame.mouse.get_pos() 
+
+    if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
+        pygame.draw.rect(window,color_light,[WIDTH/2,HEIGHT/2,140,40]) 
+          
+    else: 
+        pygame.draw.rect(window,color_dark,[WIDTH/2,HEIGHT/2,140,40]) 
+    window.blit(Quit , (WIDTH/2+50,HEIGHT/2))
+
+    if WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
+        pygame.draw.rect(window,color_light,[WIDTH/4-40,HEIGHT/2,140,40]) 
+          
+    else: 
+        pygame.draw.rect(window,color_dark,[WIDTH/4-40,HEIGHT/2,140,40]) 
+    window.blit(Iniciar , (WIDTH/4-10,HEIGHT/2)) 
+
     
 
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador
 
 # ===== Finalização =====
-pygame.quit()  # Função do PyGame que finaliza os recursos utilizados

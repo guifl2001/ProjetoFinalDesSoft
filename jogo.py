@@ -3,8 +3,8 @@
 import pygame
 
 pygame.init()
-WIDTH = 500
-HEIGHT = 500
+WIDTH = 600
+HEIGHT = 600
 # ----- Gera tela principal
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Black Jack')
@@ -75,70 +75,36 @@ rainha_de_paus = pygame.image.load('pasta_de_cartas/Rainha_de_paus.PNG').convert
 valete_de_paus = pygame.image.load('pasta_de_cartas/Valete_de_paus.PNG').convert()
 as_de_paus = pygame.image.load('pasta_de_cartas/As_de_paus (2).PNG').convert()
 
-class carta_pra_cima_posicao1(pygame.sprite.Sprite):
-    def __init__(self,img):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.x = 10
-        self.rect.y = 10
-        self.speedx = 0
-        self.speedy = 10
-    def update(self):
-        self.rect.x += self.speedx
-        self.rect.y += self.speedy
-        if self.rect.y > posicao_1_carta_jogador[1] :
-            self.rect.x = 10
-            self.rect.y = 300
-        
 
-class carta_pra_cima_posicao2(pygame.sprite.Sprite):
-    def __init__(self,img):
+#Classe das cartas que vao chegar no jogador
+class carta_pra_cima_posicao(pygame.sprite.Sprite):
+    def __init__(self,img,x_final,y_final):
         pygame.sprite.Sprite.__init__(self)
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.x = 0
+        self.rect.x = 25
         self.rect.y = 0
-        self.speedx = 5
-        self.speedy = 10
+        self.speedx = (x_final + 10)/70
+        self.speedy = (y_final)/70
+        self.x_final = x_final
+        self.y_final = y_final
     def update(self):
-        self.rect.x += self.speedx
         self.rect.y += self.speedy
-        if self.rect.y > posicao_2_carta_jogador[1] :
-            self.rect.x = 150
-            self.rect.y = 300
-        
-       
-
-
-class carta_pra_cima_posicao3(pygame.sprite.Sprite):
-    def __init__(self,img):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.x = 0
-        self.rect.y = 0
-        self.speedx = 10
-        self.speedy = 10
-    def update(self):
         self.rect.x += self.speedx
-        self.rect.y += self.speedy
-        if self.rect.y > posicao_3_carta_jogador[1]:
-            self.rect.x = 300
-            self.rect.y = 300
-        
-        
-
-
+        if self.rect.y > self.y_final :
+            self.rect.y = self.y_final
+        if self.rect.x > self.x_final :
+            self.rect.x = self.x_final
+            
 
 FPS = 30
 clock = pygame.time.Clock()
 
 #criando val de copas
 all_sprites = pygame.sprite.Group()
-valcopas = carta_pra_cima_posicao1(valete_de_copas)
-rainhacopas = carta_pra_cima_posicao2(rainha_de_copas)
-reicopas = carta_pra_cima_posicao3(rei_de_copas)
+valcopas = carta_pra_cima_posicao(valete_de_copas,WIDTH/5,3/4*HEIGHT)
+rainhacopas = carta_pra_cima_posicao(rainha_de_copas,2*WIDTH/5,3/4*HEIGHT)
+reicopas = carta_pra_cima_posicao(rei_de_copas,3*WIDTH/5,3/4*HEIGHT)
 all_sprites.add(valcopas)
 all_sprites.add(rainhacopas)
 all_sprites.add(reicopas)
@@ -209,7 +175,6 @@ while game:
     else: 
         pygame.draw.rect(window,color_dark,[WIDTH/4-40,HEIGHT/2,140,40]) 
     window.blit(Iniciar , (WIDTH/4-10,HEIGHT/2)) 
-
     
 
     # ----- Atualiza estado do jogo

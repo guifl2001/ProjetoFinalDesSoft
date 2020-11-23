@@ -15,6 +15,11 @@ posicao_1_carta_jogador = [300,300]
 posicao_2_carta_jogador = [300,300]
 posicao_3_carta_jogador = [300,300]
 
+#Arquivos de som
+pygame.mixer.music.load('tetris_beatbox.wav.wav')
+pygame.mixer.music.set_volume(0.2)
+som_shuffle = pygame.mixer.Sound('card_shuffle.wav.wav')
+
 #cartas de copas
 dois_de_copas = pygame.image.load('pasta_de_cartas/2_de_copas.PNG').convert()
 tres_de_copas = pygame.image.load('pasta_de_cartas/3_de_copas.PNG').convert()
@@ -88,13 +93,16 @@ class carta_pra_cima_posicao(pygame.sprite.Sprite):
         self.speedy = (y_final)/70
         self.x_final = x_final
         self.y_final = y_final
+        self.som_embaralhar = som_shuffle 
     def update(self):
         self.rect.y += self.speedy
         self.rect.x += self.speedx
+        self.som_embaralhar.play()
         if self.rect.y > self.y_final :
             self.rect.y = self.y_final
         if self.rect.x > self.x_final :
             self.rect.x = self.x_final
+            
             
 
 FPS = 30

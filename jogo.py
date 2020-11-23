@@ -186,11 +186,13 @@ def main():
 
     # textos
     Quit = font.render('quit' , True , white)
-    Blackjack = font.render('BlackJack' , True , white)
+    Blackjack = font.render('BlackJack!' , True , white)
     Comprar = font.render('Comprar' , True , white)
     Continuar = font.render('Continuar' , True , white)
     Gameover = font.render('Gameover' , True , white)
     Reiniciar = font.render('Reiniciar' , True , white)
+    Vitoria = font.render('Você ganhou!', True, white)
+    Derrota = font.render('Você perdeu!', True,)
 
     #montar tela
     background = pygame.Surface(window.get_size())

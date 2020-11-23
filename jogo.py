@@ -17,10 +17,16 @@ pygame.display.set_caption('Black Jack')
 # ----- Inicia estruturas de dados
 game = True
 
+#Arquivos de som
+pygame.mixer.music.load('tetris_beatbox.wav.wav')
+pygame.mixer.music.set_volume(0.2)
+som_shuffle = pygame.mixer.Sound('card_shuffle.wav.wav')
+
 #carta de costas
 C_costas = pygame.image.load('BARALHO/carta_de_costas.PNG').convert()
 
 baralho = []
+
 #cartas de copas
 D_C = pygame.image.load('pasta_de_cartas/2_de_copas.PNG').convert()
 baralho.append(D_C)
@@ -133,6 +139,29 @@ baralho.append(V_P)
 A_P = pygame.image.load('pasta_de_cartas/As_de_paus (2).PNG').convert()
 baralho.append(A_P)
 
+#Classe das cartas que vao chegar no jogador
+class carta_pra_cima_posicao(pygame.sprite.Sprite):
+    def __init__(self,img,x_final,y_final):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = 25
+        self.rect.y = 0
+        self.speedx = (x_final + 10)/70
+        self.speedy = (y_final)/70
+        self.x_final = x_final
+        self.y_final = y_final
+        self.som_embaralhar = som_shuffle 
+    def update(self):
+        self.rect.y += self.speedy
+        self.rect.x += self.speedx
+        self.som_embaralhar.play()
+        if self.rect.y > self.y_final :
+            self.rect.y = self.y_final
+        if self.rect.x > self.x_final :
+            self.rect.x = self.x_final
+    
+# classes de valores das cartas    
 CartaA = [ A_C, A_O, A_E, A_P ]
 Carta2 = [ D_C, D_O, D_E, D_P ]
 Carta3 = [T_C, T_O, T_E, T_P ]
@@ -234,6 +263,7 @@ jogador = 0
 banco = 0
 
 # ===== Loop principal =====
+pygame.mixer.music.play(loops =- 1)
 while game:
     inicio(baralho, mao_jogador)
     inicio(baralho, mao_banco)
@@ -308,161 +338,36 @@ while game:
             
     pygame.display.update()
 
-# # Perguntar quantas fichas o jogador quer comprar
-# Fichas = int(input("Quantas fichas gostaria de adquirir? "))
-# Preco = 10 * Fichas
-# print("Seu total é de R${0}!" .format(Preco))
+#         print(event) # ----- Verifica consequência    
+#         if event.type == pygame.MOUSEBUTTONDOWN:  #if the mouse is clicked on the               
+#             # COMECA JOGO
+#             if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
+#                 gameDisplay.fill(white)
+#                 pygame.display.update()
+#             #PARA JOGO
+#             elif WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:               
+#                 pygame.quit()
 
-# while True:
-#     # Perguntar quantas fichas deseja apostar
+#     # ----- Gera saídas  
+#     gameDisplay = pygame.display.set_mode((WIDTH,HEIGHT))
+#     gameDisplay.fill(green) 
 
-#     Aposta = int(input("Qual será sua aposta?"))
-#     if Aposta < 1:
-#         print("Não tenha medo! Hoje senti que a sorte está do seu lado.")
-#     elif Aposta > Fichas:
-#         Falta = Aposta - Fichas
-#         r = input("Você não tem todas essas fichas, gostaria de comprar mais {0} fichas?(s ou n) " .format(Falta))
-#         if r == 's':
-#             print('Você comprou {0} fichas! Vamos jogar!' .format(Falta))
-#             Fichas += Falta
-#             Fichas -= Aposta
-#         else:
-#             Aposta = int(input("Qual será sua aposta? "))
-#     else:
-#         print('Vamos jogar!')
-#         Fichas -= Aposta
+#     # Cria posição do mouse
+#     mouse = pygame.mouse.get_pos() 
 
-#     time.sleep(2)
+#     #DESENHA BOTAO DE INICIAR
+#     WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40
+#     pygame.draw.rect(window,color_light,[WIDTH/2,HEIGHT/2,140,40]) 
+#     pygame.draw.rect(window,color_dark,[WIDTH/2,HEIGHT/2,140,40]) 
+#     window.blit(Quit , (WIDTH/2+50,HEIGHT/2))
 
-#     # embaralhando e selecionando as cartas dos jogadores
-#     random.shuffle(baralho)
+#     #DESENHA BOTAO DE QUIT
+#     WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40
+#     pygame.draw.rect(window,color_light,[WIDTH/4-40,HEIGHT/2,140,40])         
+#     pygame.draw.rect(window,color_dark,[WIDTH/4-40,HEIGHT/2,140,40]) 
+#     window.blit(Iniciar , (WIDTH/4-10,HEIGHT/2)) 
 
-#     mao_jogador = baralho[0:2]
-#     mao_banco = baralho[2:4]
-#     print("Suas cartas são {0}" .format(mao_jogador))
-#     time.sleep(2)
-#     print("As cartas do banco são {0}" .format(mao_banco))
-
-#     # colocando os valores nas do jogador:
-#     if mao_jogador[0][0] == 'A':
-#         pont1 = 11
-#     elif mao_jogador[0][0] == '10' or mao_jogador[0][0] == 'J' or mao_jogador[0][0] == 'Q' or mao_jogador[0][0] == 'K':
-#         pont1 = 10
-#     elif int(mao_jogador[0][0]) < 10:
-#         pont1 = int(mao_jogador[0][0])
-
-#     if mao_jogador[1][0] == 'A':
-#         pont2 = 11
-#     elif mao_jogador[1][0] == '10' or mao_jogador[1][0] == 'J' or mao_jogador[1][0] == 'Q' or mao_jogador[1][0] == 'K':
-#         pont2 = 10
-#     elif int(mao_jogador[1][0]) < 10:
-#         pont2 = int(mao_jogador[1][0])
-#     jogador = pont1 + pont2
-#     if jogador > 21 and (mao_jogador[0][0] == 'A' or mao_jogador[1][0] == 'A'):
-#         jogador -= 10
-
-#     # colocando valores nas cartas do banco:
-#     if mao_banco[0][0] == 'A':
-#         pontu1 = 11
-#     elif mao_banco[0][0] == '10' or mao_banco[0][0] == 'J' or mao_banco[0][0] == 'Q' or mao_banco[0][0] == 'K':
-#         pontu1 = 10
-#     elif int(mao_banco[0][0]) < 10:
-#         pontu1 = int(mao_banco[0][0])
-
-#     if mao_banco[1][0] == 'A':
-#         pontu2 = 11
-#     elif mao_banco[1][0] == '10' or mao_banco[1][0] == 'J' or mao_banco[1][0] == 'Q' or mao_banco[1][0] == 'K':
-#         pontu2 = 10
-#     elif int(mao_banco[1][0]) < 10:
-#         pontu2 = int(mao_banco[1][0])
-#     banco = pontu1 + pontu2
-#     if banco > 21 and (mao_banco[0][0] == 'A' or mao_banco[1][0] == 'A'):
-#         banco -= 10
-
-#     # Definindo a pontuação
-
-#     # Checando o vencedor
-    
-#     j_venceu = False
-#     b_venceu = False
-#     if jogador == 21:
-#         print('O jogador alcançou a pontuação desejada')
-#         j_venceu = True
-#     if jogador > 21:
-#         print('O jogador ultrapassou a pontuação desejada')
-#     if banco == 21:
-#         print('O banco alcançou a pontuação desejada')
-#         b_venceu = True
-#     if banco > 21:
-#         print('O banco ultrapassou a pontuação desejada')
-
-#     # O jogador vai comprar cartas?
-
-#     i = 0
-#     nao = False
-#     while jogador < 21 and b_venceu == False and nao == False:
-#         resp = input('Você tem {0} pontos. Deseja mais uma carta?' .format(jogador))
-#         if resp == 'sim':
-#             mao_jogador += baralho[i + 4]
-#             time.sleep(2)
-#             print("Sua carta é {0}" .format(mao_jogador[(i + 2)]))
-#             if mao_jogador[(i + 2)] == 'A' and jogador > 10:
-#                 pont = 1
-#             if mao_jogador[(i + 2)] == 'A' and jogador <= 10:
-#                 pont = 11
-#             elif mao_jogador[(i + 2)] == '10' or mao_jogador[(i + 2)] == 'J' or mao_jogador[(i + 2)] == 'Q' or mao_jogador[(i + 2)] == 'K':
-#                 pont = 10
-#             elif int(mao_jogador[(i + 2)]) < 10:
-#                 pont = int(mao_jogador[(i + 2)])
-#             jogador += pont
-#             i += 2
-#         else:
-#             nao = True
-#     if jogador == 21 and b_venceu == False:
-#         print('BlackJack!')
-#         j_venceu = True
-#     elif jogador > 21 and (mao_jogador[0][0] == 'A' or mao_jogador[1][0] == 'A'):
-#         jogador -= 10
-#     if jogador > 21:
-#         print('O jogador ultrapassou a pontuação desejada')
-#     time.sleep(1)
-
-#     f = 0
-#     while banco < 16 or banco < jogador and jogador < 21 and j_venceu == False:
-#         mao_banco += baralho[f + i + 4]
-#         time.sleep(2)
-#         print("O banco tem {0} pontos. A carta do banco é {1}" .format(banco, mao_banco[(f + 2)]))
-#         if mao_banco[(f + 2)] == 'A' and banco > 10:
-#             pont = 1
-#         elif mao_banco[(f + 2)] == 'A' and banco <= 10:
-#             pont = 11
-#         elif mao_banco[(f + 2)] == '10' or mao_banco[(f + 2)] == 'J' or mao_banco[(f + 2)] == 'Q' or mao_banco[(f + 2)] == 'K':
-#             pont = 10
-#         elif int(mao_banco[(f + 2)]) < 10:
-#             pont = int(mao_banco[(f + 2)])
-#         banco += pont
-#         f += 2
-#     if banco == 21 and b_venceu == False:
-#         print('O banco ganhou!')
-#         b_venceu = True
-#     elif banco > 21 and (mao_banco[0][0] == 'A' or mao_banco[1][0] == 'A'):
-#         banco -= 10
-#     if banco > 21:
-#         print('O banco ultrapassou a pontuação desejada')
-#     time.sleep(1)
-
-#     # Definindo o vencedor
-
-#     time.sleep(2)
-#     if j_venceu == True or (jogador > banco and jogador < 21) or banco > 21:
-#         print('Você ganhou!!! Aqui está suas {0} fichas' .format(2 * Aposta))
-#         Fichas += Aposta * 2
-#     elif b_venceu == True or (banco >= jogador and banco < 21) or jogador > 21:
-#         print('Você perdeu!')
-            
-#     #Checando se o jogador quer continuar jogando
-
-#     jogar_mais = input("Vamos mais uma?(S ou N)")
-#     if jogar_mais == 'N':
-#         print('Ok, aqui estão suas {0} fichas, obrigado por jogar!' .format(Fichas))
-#         break
+#     # ----- Atualiza estado do jogo
+#     pygame.display.update()  # Mostra o novo frame para o jogador
+#     clock.tick(1000)
+# # ===== Finalização =====

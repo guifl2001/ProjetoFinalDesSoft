@@ -153,10 +153,9 @@ while game:
             if WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:
                 pygame.quit()
             # botão de começar o jogo
-    # ----- Gera saídas
-    window.fill(green)
-    
-    display_surface.blit(Blackjack, textRect) 
+    # ----- Gera saídas  
+    gameDisplay = pygame.display.set_mode((WIDTH,HEIGHT))
+    gameDisplay.fill(green) 
 
     
     # Cria posição do mouse

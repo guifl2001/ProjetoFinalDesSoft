@@ -147,6 +147,7 @@ textRect = Blackjack.get_rect()
 textRect.center = (WIDTH // 2, HEIGHT // 4) 
 
 # ===== Loop principal =====
+pygame.mixer.music.play(loops =- 1)
 while game:
     clock.tick(FPS)
     # ----- Trata eventos

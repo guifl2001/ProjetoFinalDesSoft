@@ -155,7 +155,9 @@ while game:
             # botão de começar o jogo
     # ----- Gera saídas  
     gameDisplay = pygame.display.set_mode((WIDTH,HEIGHT))
-    gameDisplay.fill(green) 
+    gameDisplay.fill(green)  
+
+    display_surface.blit(Blackjack, textRect) 
 
     
     # Cria posição do mouse

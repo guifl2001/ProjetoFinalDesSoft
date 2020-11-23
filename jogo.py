@@ -3,7 +3,6 @@
 import pygame
 
 pygame.init()
-pygame.mixer.init()
 WIDTH = 600
 HEIGHT = 600
 # ----- Gera tela principal
@@ -15,11 +14,6 @@ game = True
 posicao_1_carta_jogador = [300,300]
 posicao_2_carta_jogador = [300,300]
 posicao_3_carta_jogador = [300,300]
-
-#Arquivos de som
-pygame.mixer.music.load('tetris_beatbox.wav.wav')
-pygame.mixer.music.set_volume(0.2)
-som_shuffle = pygame.mixer.Sound('card_shuffle.wav.wav')
 
 #cartas de copas
 dois_de_copas = pygame.image.load('pasta_de_cartas/2_de_copas.PNG').convert()
@@ -94,11 +88,9 @@ class carta_pra_cima_posicao(pygame.sprite.Sprite):
         self.speedy = (y_final)/70
         self.x_final = x_final
         self.y_final = y_final
-        self.som_embaralhar = som_shuffle 
     def update(self):
         self.rect.y += self.speedy
         self.rect.x += self.speedx
-        self.som_embaralhar.play()
         if self.rect.y > self.y_final :
             self.rect.y = self.y_final
         if self.rect.x > self.x_final :
@@ -147,44 +139,42 @@ textRect = Blackjack.get_rect()
 textRect.center = (WIDTH // 2, HEIGHT // 4) 
 
 # ===== Loop principal =====
-pygame.mixer.music.play(loops=-1)
 while game:
     clock.tick(FPS)
     # ----- Trata eventos
     for event in pygame.event.get():
         # ----- Verifica consequências
-        if event.type == pygame.MOUSEBUTTONDOWN: 
-              
+        if event.type == pygame.MOUSEBUTTONDOWN:            
             #if the mouse is clicked on the 
-            # botão fechar o jogo
-            if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
-                window.fill(white)
-            if WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:
-                pygame.quit()
-            # botão de começar o jogo
-    # ----- Gera saídas
-    window.fill(green)
-    
-    display_surface.blit(Blackjack, textRect) 
+            # PYGAME QUIT - FECHA SO O PYGAME MAS AINDA N FECHA O CONSOLE
 
-    
+
+            if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:  
+                pygame.display.update()
+            #REMOVE DISPLAY GREEN - COMECA JOGO
+
+
+            if WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:               
+                pygame.quit()
+
+    # ----- Gera saídas  
+    gameDisplay = pygame.display.set_mode((WIDTH,HEIGHT))
+    gameDisplay.fill(green) 
+
     # Cria posição do mouse
     mouse = pygame.mouse.get_pos() 
 
-    if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
-        pygame.draw.rect(window,color_light,[WIDTH/2,HEIGHT/2,140,40]) 
-          
-    else: 
-        pygame.draw.rect(window,color_dark,[WIDTH/2,HEIGHT/2,140,40]) 
+    #DESENHA BOTAO DE INICIAR
+    WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40
+    pygame.draw.rect(window,color_light,[WIDTH/2,HEIGHT/2,140,40]) 
+    pygame.draw.rect(window,color_dark,[WIDTH/2,HEIGHT/2,140,40]) 
     window.blit(Quit , (WIDTH/2+50,HEIGHT/2))
 
-    if WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
-        pygame.draw.rect(window,color_light,[WIDTH/4-40,HEIGHT/2,140,40]) 
-          
-    else: 
-        pygame.draw.rect(window,color_dark,[WIDTH/4-40,HEIGHT/2,140,40]) 
+    #DESENHA BOTAO DE QUIT
+    WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40
+    pygame.draw.rect(window,color_light,[WIDTH/4-40,HEIGHT/2,140,40])         
+    pygame.draw.rect(window,color_dark,[WIDTH/4-40,HEIGHT/2,140,40]) 
     window.blit(Iniciar , (WIDTH/4-10,HEIGHT/2)) 
-    
 
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador

@@ -146,14 +146,10 @@ while game:
         # ----- Verifica consequências
         if event.type == pygame.MOUSEBUTTONDOWN:            
             #if the mouse is clicked on the 
-            # PYGAME QUIT - FECHA SO O PYGAME MAS AINDA N FECHA O CONSOLE
-
-
+            # COMECA JOGO
             if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:  
                 pygame.display.update()
-            #REMOVE DISPLAY GREEN - COMECA JOGO
-
-
+            #PARA JOGO
             if WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:               
                 pygame.quit()
 

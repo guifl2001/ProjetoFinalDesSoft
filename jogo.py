@@ -3,6 +3,7 @@
 import pygame
 
 pygame.init()
+pygame.mixer.init()
 WIDTH = 600
 HEIGHT = 600
 # ----- Gera tela principal
@@ -14,6 +15,10 @@ game = True
 posicao_1_carta_jogador = [300,300]
 posicao_2_carta_jogador = [300,300]
 posicao_3_carta_jogador = [300,300]
+
+#Arquivos de som
+pygame.mixer.music.load('tetris_beatbox.wav.wav')
+pygame.mixer.music.set_volume(0.2)
 
 #cartas de copas
 dois_de_copas = pygame.image.load('pasta_de_cartas/2_de_copas.PNG').convert()
@@ -139,6 +144,7 @@ textRect = Blackjack.get_rect()
 textRect.center = (WIDTH // 2, HEIGHT // 4) 
 
 # ===== Loop principal =====
+pygame.mixer.music.play(loops=-1)
 while game:
     clock.tick(FPS)
     # ----- Trata eventos
@@ -153,10 +159,9 @@ while game:
             if WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:
                 pygame.quit()
             # botão de começar o jogo
-    # ----- Gera saídas  
-    gameDisplay = pygame.display.set_mode((WIDTH,HEIGHT))
-    gameDisplay.fill(green)  
-
+    # ----- Gera saídas
+    window.fill(green)
+    
     display_surface.blit(Blackjack, textRect) 
 
     

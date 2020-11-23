@@ -143,14 +143,14 @@ while game:
     clock.tick(FPS)
     # ----- Trata eventos
     for event in pygame.event.get():
-        # ----- Verifica consequências
-        if event.type == pygame.MOUSEBUTTONDOWN:            
-            #if the mouse is clicked on the 
+        print(event) # ----- Verifica consequência    
+        if event.type == pygame.MOUSEBUTTONDOWN:  #if the mouse is clicked on the               
             # COMECA JOGO
-            if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:  
+            if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
+                gameDisplay.fill(white)
                 pygame.display.update()
             #PARA JOGO
-            if WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:               
+            elif WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:               
                 pygame.quit()
 
     # ----- Gera saídas  
@@ -174,5 +174,5 @@ while game:
 
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador
-
+    clock.tick(1000)
 # ===== Finalização =====

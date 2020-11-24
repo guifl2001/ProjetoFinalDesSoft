@@ -183,7 +183,7 @@ jogador, banco = inicio(cartas, mao_jogador, mao_banco)
 
 #Arquivos de som
 pygame.mixer.music.load('tetris_beatbox.wav.wav')
-pygame.mixer.music.set_volume(0.03)
+pygame.mixer.music.set_volume(0.00)
 som_shuffle = pygame.mixer.Sound('card_shuffle.wav.wav')
 
 # textos
@@ -191,8 +191,8 @@ Quit = font.render('quit' , True , white)
 Blackjack = font.render('BlackJack!' , True , white)
 Comprar = font.render('Comprar' , True , white)
 Continuar = font.render('Continuar' , True , white)
-Gameover = font.render('Gameover' , True , white)
-Reiniciar = font.render('Reiniciar' , True , white)
+Gameover = font.render('Acabou a rodada' , True , white)
+Reiniciar = font.render('Nova rodada' , True , white)
 Vitoria = font.render('Você ganhou!', True, white)
 Derrota = font.render('Você perdeu!', True,white)
 
@@ -279,7 +279,7 @@ while game:
             mao_jogador = []
             mao_banco = []
             jogador, banco = inicio(cartas, mao_jogador, mao_banco)
-            reiniciarb = pygame.draw.rect(background, (80, 150, 15), (270, 225, 75, 25))
+            reiniciarb = pygame.draw.rect(background, (80, 150, 15), (270, 225, 100, 25))
 
     window.blit(background, (0, 0))
     window.blit(Comprar, (25, 448))
@@ -301,42 +301,8 @@ while game:
     # Mostrar segunda carta do banco e perguntar do reinicio
     if gameover or continuar:
         window.blit(Gameover, (270, 200))
-        reiniciarb = pygame.draw.rect(background, gray, (270, 225, 75, 25))
+        reiniciarb = pygame.draw.rect(background, gray, (270, 225, 100, 25))
         window.blit(Reiniciar, (287, 228))
         window.blit(mao_banco[1], (120, 10))
             
     pygame.display.update()
-
-#         print(event) # ----- Verifica consequência    
-#         if event.type == pygame.MOUSEBUTTONDOWN:  #if the mouse is clicked on the               
-#             # COMECA JOGO
-#             if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
-#                 gameDisplay.fill(white)
-#                 pygame.display.update()
-#             #PARA JOGO
-#             elif WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40:               
-#                 pygame.quit()
-
-#     # ----- Gera saídas  
-#     gameDisplay = pygame.display.set_mode((WIDTH,HEIGHT))
-#     gameDisplay.fill(green) 
-
-#     # Cria posição do mouse
-#     mouse = pygame.mouse.get_pos() 
-
-#     #DESENHA BOTAO DE INICIAR
-#     WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40
-#     pygame.draw.rect(window,color_light,[WIDTH/2,HEIGHT/2,140,40]) 
-#     pygame.draw.rect(window,color_dark,[WIDTH/2,HEIGHT/2,140,40]) 
-#     window.blit(Quit , (WIDTH/2+50,HEIGHT/2))
-
-#     #DESENHA BOTAO DE QUIT
-#     WIDTH/4-40 <= mouse[0] <= WIDTH/4-40+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40
-#     pygame.draw.rect(window,color_light,[WIDTH/4-40,HEIGHT/2,140,40])         
-#     pygame.draw.rect(window,color_dark,[WIDTH/4-40,HEIGHT/2,140,40]) 
-#     window.blit(Iniciar , (WIDTH/4-10,HEIGHT/2)) 
-
-#     # ----- Atualiza estado do jogo
-#     pygame.display.update()  # Mostra o novo frame para o jogador
-#     clock.tick(1000)
-# # ===== Finalização =====

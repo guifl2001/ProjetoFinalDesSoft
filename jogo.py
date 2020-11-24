@@ -203,6 +203,7 @@ background.fill((80, 150, 15))
 comprarb = pygame.draw.rect(background, color_dark, (10, 445, 75, 25))
 continuarb = pygame.draw.rect(background, color_dark, (95, 445, 75, 25))
 
+
 #==TELA DE INICIO==
 black=(0,0,0)
 tela_inicio=False
@@ -210,7 +211,7 @@ instrucoes = True
 while (tela_inicio==False):
     window.fill(black)
     titulo=pygame.font.SysFont("Black Jack", 40)
-    titulo_na_tela=pygame.image.load(' ') #ainda eh necessario colocar imagem
+    titulo_na_tela=pygame.image.load('pasta_de_cartas/2_de_paus.PNG') #ainda eh necessario colocar imagem
     for event in pygame.event.get():
         if event.type== pygame.MOUSEBUTTONDOWN:
             tela_inicio=True
@@ -222,13 +223,11 @@ while (tela_inicio==False):
 while (instrucoes==False):
     window.fill(black)
     titulo=pygame.font.SysFont("Black Jack", 40)
-    meutitulo=titulo.render("INSTRUCOES DO JOGO", 1, (255, 255, 0))
-    regras = titulo.render("regras : /n batata",2,(255,255,0))
+    titulo_na_tela=pygame.image.load('instrucoes_black_jack.png')
     for event in pygame.event.get():
         if event.type== pygame.MOUSEBUTTONDOWN:
             instrucoes = True
-    window.blit(meutitulo,(0,0))
-    window.blit(regras,(10,10))
+    window.blit(titulo_na_tela,(0,0))
     pygame.display.flip()
 
 

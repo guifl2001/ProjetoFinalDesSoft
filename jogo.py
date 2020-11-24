@@ -186,13 +186,12 @@ def main():
 
     # textos
     Quit = font.render('quit' , True , white)
-    Blackjack = font.render('BlackJack!' , True , white)
     Comprar = font.render('Comprar' , True , white)
     Continuar = font.render('Continuar' , True , white)
     Gameover = font.render('Gameover' , True , white)
     Reiniciar = font.render('Reiniciar' , True , white)
     Vitoria = font.render('Você ganhou!', True, white)
-    Derrota = font.render('Você perdeu!', True,)
+    Derrota = font.render('Você perdeu!', True, white)
 
     #montar tela
     background = pygame.Surface(window.get_size())
@@ -205,11 +204,10 @@ def main():
     pygame.mixer.music.play(loops =- 1)
     while True:
         #se o jogo acabou
-        gameover = True if jogador >= 21 else False
-        if jogador == 21:
+        if jogador >= 21 or banco >= 21:
             gameover = True
-        elif banco == 21:
-            gameover = True
+        else:
+            gameover = False
 
         #background needs to be redisplayed because it gets updated
         vitoria_txt = font.render('Wins: %i' % vitoria, 1, white)
@@ -235,12 +233,11 @@ def main():
                     while banco > 21 and carta in CartaA:
                         banco -= 10
             elif event.type == pygame.MOUSEBUTTONDOWN and (gameover or continuar) and reiniciarb.collidepoint(pygame.mouse.get_pos()):
-                if jogador == banco:
-                    pass
-                elif jogador == 21 or banco < jogador or banco > 21:
+                if jogador == 21 or (banco < jogador and jogador < 21) or banco > 21 or jogador == banco:
                     vitoria += 1
                 else:
                     derrota += 1
+                
                 gameover = False
                 continuar = False
                 mao_jogador = []
@@ -270,8 +267,7 @@ def main():
             window.blit(Gameover, (270, 200))
             reiniciarb = pygame.draw.rect(background, gray, (270, 225, 75, 25))
             window.blit(Reiniciar, (287, 228))
-            window.blit(mao_banco[1], (120, 10))
-                
+            window.blit(mao_banco[1], (120, 10))                
         pygame.display.update()
 
 if __name__ == '__main__':

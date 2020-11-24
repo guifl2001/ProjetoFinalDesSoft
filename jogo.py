@@ -210,13 +210,14 @@ def main():
             gameover = False
 
         #background needs to be redisplayed because it gets updated
-        vitoria_txt = font.render('Wins: %i' % vitoria, 1, white)
-        derrota_txt = font.render('Losses: %i' % derrota, 1, white)
+        vitoria_txt = font.render('Vitórias: {}' .format(vitoria), 1, white)
+        derrota_txt = font.render('Derrotas: {}'.format(derrota), 1, white)
         
         # ----- Trata eventos
         for event in pygame.event.get():
             if event.type == quit:
                 pygame.quit()
+                return
             elif event.type == pygame.MOUSEBUTTONDOWN and not (gameover or continuar) and comprarb.collidepoint(pygame.mouse.get_pos()):
                 #gives player a card if they don't break blackjack rules
                 carta = embaralhar(cartas, mao_jogador)

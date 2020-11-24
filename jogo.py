@@ -279,7 +279,7 @@ while game:
             mao_jogador = []
             mao_banco = []
             jogador, banco = inicio(cartas, mao_jogador, mao_banco)
-            reiniciarb = pygame.draw.rect(background, (80, 150, 15), (270, 225, 100, 25))
+            reiniciarb = pygame.draw.rect(background, (80, 150, 15), (270, 225, 100, 26))
 
     window.blit(background, (0, 0))
     window.blit(Comprar, (25, 448))
@@ -301,7 +301,7 @@ while game:
     # Mostrar segunda carta do banco e perguntar do reinicio
     if gameover or continuar:
         window.blit(Gameover, (270, 200))
-        reiniciarb = pygame.draw.rect(background, gray, (270, 225, 100, 25))
+        reiniciarb = pygame.draw.rect(background, gray, (270, 225, 100, 26))
         window.blit(Reiniciar, (287, 228))
         window.blit(mao_banco[1], (120, 10))
             

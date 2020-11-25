@@ -1,5 +1,4 @@
-# ===== Inicialização =====
-# ----- Importa e inicia pacotes
+#IMPORTA E INICIA BIBLIOTECA E PACOTES
 import pygame
 from collections import namedtuple
 from itertools import product
@@ -8,15 +7,22 @@ import time
 import math
 import copy
 
+#INIDIALIZA PYGAME
+pygame.init()
+
+#DEFINE IS AS DIMENSOES DA JANELA DO JOGO 
 WIDTH = 640
 HEIGHT = 480
 
-pygame.init()
+#DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE
+#DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE 
+#DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE CARTAS##DEFINE
 
-#carta de costas
+#C_COSTAS = CARREGAR COSTAS UNIVERSAL DE TODOS AS CARTAS
+#TODAS AS CARTAS QUANDO NÃO ESTÃO SENDO MOSTRADAS CARREGAM O CARDBACK
 C_costas = pygame.image.load('BARALHO/cardback.png')
 
-#cartas de copas
+#TODAS AS CARTAS DO NAIPE DE COPAS (HARTS)
 D_C = pygame.image.load('pasta_de_cartas/2_de_copas.PNG')
 T_C = pygame.image.load('pasta_de_cartas/3_de_copas.PNG')
 Q_C = pygame.image.load('pasta_de_cartas/4_de_copas.PNG')
@@ -30,8 +36,9 @@ K_C = pygame.image.load('pasta_de_cartas/Rei_de_copas.PNG')
 R_C = pygame.image.load('pasta_de_cartas/Rainha_de_copas.PNG')
 V_C = pygame.image.load('pasta_de_cartas/Valete_de_copas.PNG')
 A_C = pygame.image.load('pasta_de_cartas/As_de_copas.PNG')
+#==================================================
 
-#carta de ouro
+#TODAS AS CARTAS DO NAIPE DE OURO (DIAMOND)
 D_O = pygame.image.load('pasta_de_cartas/2_de_ouro.PNG')
 T_O = pygame.image.load('pasta_de_cartas/3_de_ouro.PNG')
 Q_O = pygame.image.load('pasta_de_cartas/4_de_ouro.PNG')
@@ -45,8 +52,9 @@ K_O = pygame.image.load('pasta_de_cartas/Rei_de_ouro.PNG')
 R_O = pygame.image.load('pasta_de_cartas/Rainha_de_ouro.PNG')
 V_O = pygame.image.load('pasta_de_cartas/Valete_de_ouro.PNG')
 A_O = pygame.image.load('pasta_de_cartas/As_de_ouro.PNG')
+#==================================================
 
-#carta de espadas
+#TODAS AS CARTAS DO NAIPE DE ESPADAS (SWORDS)
 D_E = pygame.image.load('pasta_de_cartas/2_de_espadas.PNG')
 T_E = pygame.image.load('pasta_de_cartas/3_de_espadas.PNG')
 Q_E = pygame.image.load('pasta_de_cartas/4_de_espadas.PNG')
@@ -60,8 +68,9 @@ K_E = pygame.image.load('pasta_de_cartas/Rei_de_espadas.PNG')
 R_E = pygame.image.load('pasta_de_cartas/Rainha_de_espadas.PNG')
 V_E = pygame.image.load('pasta_de_cartas/Valete_de_espadas.PNG')
 A_E = pygame.image.load('pasta_de_cartas/A_de_espadas.PNG')
+#==================================================
 
-#carta de paus
+#TODAS AS CARTAS DO NAIPE DE PAUS (CLUBS)
 D_P = pygame.image.load('pasta_de_cartas/2_de_paus.PNG')
 T_P = pygame.image.load('pasta_de_cartas/3_de_paus.PNG')
 Q_P = pygame.image.load('pasta_de_cartas/4_de_paus.PNG')
@@ -75,6 +84,11 @@ K_P = pygame.image.load('pasta_de_cartas/Rei_de_paus.PNG')
 R_P = pygame.image.load('pasta_de_cartas/Rainha_de_paus.PNG')
 V_P = pygame.image.load('pasta_de_cartas/Valete_de_paus.PNG')
 A_P = pygame.image.load('pasta_de_cartas/As_de_paus (2).PNG')
+#==================================================
+
+#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS
+#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS
+#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS
 
 #Classe das cartas que vao chegar no jogador
 class carta_pra_cima_posicao(pygame.sprite.Sprite):
@@ -174,16 +188,20 @@ vitoria = 0
 derrota = 0
 continuar = False
 
-# ----- Gera tela principal
+########################################################################################### TELA PRINCIPAL ###########################################################################################
+# TELA PRINCIPAL # # TELA PRINCIPAL # # TELA PRINCIPAL # # TELA PRINCIPAL # # TELA PRINCIPAL # # TELA PRINCIPAL # # TELA PRINCIPAL # # TELA PRINCIPAL # # TELA PRINCIPAL # # TELA PRINCIPAL # # TELA PRINCIPAL # 
+########################################################################################### TELA PRINCIPAL ###########################################################################################
+
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('BlackJack')
 font = pygame.font.SysFont('Corbel',15)
 jogador, banco = inicio(cartas, mao_jogador, mao_banco)
 
-#Arquivos de som
+#CARREGA ARQUIVO.WAV
+#COLOCA O VOLUME DA MUSICO EM UM PARÂMETRO DE 0.12.
 pygame.mixer.music.load('tetris_beatbox.wav.wav')
-pygame.mixer.music.set_volume(0.00)
+pygame.mixer.music.set_volume(0.12)
 som_shuffle = pygame.mixer.Sound('card_shuffle.wav.wav')
 
 # textos
@@ -191,8 +209,13 @@ Quit = font.render('quit' , True , white)
 Blackjack = font.render('BlackJack!' , True , white)
 Comprar = font.render('Comprar' , True , white)
 Continuar = font.render('Continuar' , True , white)
+
+#FINAL DE RODADA
 Gameover = font.render('Acabou a rodada' , True , white)
+#INICIO DA RADADA
 Reiniciar = font.render('Nova rodada' , True , white)
+
+#AVISA SE JOGAR VENCEU OU PERDEU
 Vitoria = font.render('Você ganhou!', True, white)
 Derrota = font.render('Você perdeu!', True,white)
 
@@ -233,6 +256,11 @@ while (instrucoes==False):
 
 
 
+# ===== Loop principal =====
+# ===== Loop principal =====
+# ===== Loop principal =====
+# ===== Loop principal =====
+# ===== Loop principal =====
 # ===== Loop principal =====
 game = True
 pygame.mixer.music.play(loops =- 1)

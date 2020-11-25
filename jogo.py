@@ -273,7 +273,10 @@ while game:
     empate_txt = font.render('Empates: {}' .format(empate), 1, white)
     derrota_txt = font.render('Derrotas: {}'.format(derrota), 1, white)
     Pontu_jogador = font.render('Cartas jogador: {}' .format(jogador), 1, white)
-    Pontu_banco = font.render('Cartas banco: {}' .format(banco), 1, white)
+    if gameover or continuar:
+        Pontu_banco = font.render('Cartas banco: {}' .format(banco), 1, white)
+    elif gameover == False or continuar == False:
+        Pontu_banco = font.render('Cartas banco: {}' .format(banco - pontuacao(carta_banco2)), 1, white)
     
     # ----- Trata eventos
     for event in pygame.event.get():
@@ -289,8 +292,6 @@ while game:
                 Subtraiu = True
             if jogador > 21 and carta in CartaA:
                 jogador -= 10
-            Pontu_jogador = font.render('Cartas jogador: {}' .format(jogador), 1, white)
-            Pontu_banco = font.render('Cartas banco: {}' .format(banco), 1, white)
         elif event.type == pygame.MOUSEBUTTONDOWN and not gameover and continua.collidepoint(pygame.mouse.get_pos()):
             continuar = True
             while banco <= jogador and banco < 17:    
@@ -302,8 +303,6 @@ while game:
                     Subtraiu2 = True
                 if banco > 21 and carta in CartaA:
                     banco -= 10
-                Pontu_jogador = font.render('Cartas jogador: {}' .format(jogador), 1, white)
-                Pontu_banco = font.render('Cartas banco: {}' .format(banco), 1, white)
         elif event.type == pygame.MOUSEBUTTONDOWN and (gameover or continuar) and reiniciarb.collidepoint(pygame.mouse.get_pos()):
             if jogador == banco:
                 empate += 1

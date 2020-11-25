@@ -201,7 +201,7 @@ jogador, banco = inicio(cartas, mao_jogador, mao_banco)
 #CARREGA ARQUIVO.WAV
 #COLOCA O VOLUME DA MUSICO EM UM PARÂMETRO DE 0.12.
 pygame.mixer.music.load('tetris_beatbox.wav.wav')
-pygame.mixer.music.set_volume(0.12)
+pygame.mixer.music.set_volume(0.0)
 som_shuffle = pygame.mixer.Sound('card_shuffle.wav.wav')
 
 # textos
@@ -219,7 +219,7 @@ Reiniciar = font.render('Nova rodada' , True , white)
 Vitoria = font.render('Você ganhou!', True, white)
 Derrota = font.render('Você perdeu!', True,white)
 
-#montar tela
+#Montar tela
 background = pygame.Surface(window.get_size())
 background = background.convert()
 background.fill((80, 150, 15))
@@ -227,14 +227,14 @@ comprarb = pygame.draw.rect(background, color_dark, (10, 445, 75, 25))
 continuarb = pygame.draw.rect(background, color_dark, (95, 445, 75, 25))
 
 
-#==TELA DE INICIO==
+#===TELA DE INICIO===
 black=(0,0,0)
 tela_inicio=False
 instrucoes = True
 while (tela_inicio==False):
     window.fill(black)
     titulo=pygame.font.SysFont("Black Jack", 40)
-    titulo_na_tela=pygame.image.load('pasta_de_cartas/2_de_paus.PNG') #ainda eh necessario colocar imagem
+    titulo_na_tela=pygame.image.load('MESA_FINAL .png') 
     for event in pygame.event.get():
         if event.type== pygame.MOUSEBUTTONDOWN:
             tela_inicio=True
@@ -289,7 +289,7 @@ while game:
                 jogador -= 10
         elif event.type == pygame.MOUSEBUTTONDOWN and not gameover and continuarb.collidepoint(pygame.mouse.get_pos()):
             continuar = True
-            while banco <= jogador and banco < 17:
+            while banco <= jogador and banco < 17:    
                 carta = embaralhar(cartas, mao_banco)
                 banco += pontuacao(carta)
                 print('Banco: %i' % banco)
@@ -298,7 +298,7 @@ while game:
         elif event.type == pygame.MOUSEBUTTONDOWN and (gameover or continuar) and reiniciarb.collidepoint(pygame.mouse.get_pos()):
             if jogador == banco:
                 pass
-            elif jogador == 21 or banco < jogador or banco > 21:
+            elif jogador == 21 or (banco < jogador and jogador <= 21) or banco > 21:
                 vitoria += 1
             else:
                 derrota += 1

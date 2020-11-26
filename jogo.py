@@ -22,7 +22,7 @@ HEIGHT = 800
 #TODAS AS CARTAS QUANDO NÃO ESTÃO SENDO MOSTRADAS CARREGAM O CARDBACK
 C_costas = pygame.image.load('BARALHO/cardback.png')
 
-#TODAS AS CARTAS DO NAIPE DE COPAS (HARTS)
+#TODAS AS CARTAS DO NAIPE DE COPAS
 D_C = pygame.image.load('pasta_de_cartas/2_de_copas.PNG')
 T_C = pygame.image.load('pasta_de_cartas/3_de_copas.PNG')
 Q_C = pygame.image.load('pasta_de_cartas/4_de_copas.PNG')
@@ -38,7 +38,7 @@ V_C = pygame.image.load('pasta_de_cartas/Valete_de_copas.PNG')
 A_C = pygame.image.load('pasta_de_cartas/As_de_copas.PNG')
 #==================================================
 
-#TODAS AS CARTAS DO NAIPE DE OURO (DIAMOND)
+#TODAS AS CARTAS DO NAIPE DE OURO 
 D_O = pygame.image.load('pasta_de_cartas/2_de_ouro.PNG')
 T_O = pygame.image.load('pasta_de_cartas/3_de_ouro.PNG')
 Q_O = pygame.image.load('pasta_de_cartas/4_de_ouro.PNG')
@@ -54,7 +54,7 @@ V_O = pygame.image.load('pasta_de_cartas/Valete_de_ouro.PNG')
 A_O = pygame.image.load('pasta_de_cartas/As_de_ouro.PNG')
 #==================================================
 
-#TODAS AS CARTAS DO NAIPE DE ESPADAS (SWORDS)
+#TODAS AS CARTAS DO NAIPE DE ESPADAS 
 D_E = pygame.image.load('pasta_de_cartas/2_de_espadas.PNG')
 T_E = pygame.image.load('pasta_de_cartas/3_de_espadas.PNG')
 Q_E = pygame.image.load('pasta_de_cartas/4_de_espadas.PNG')
@@ -70,7 +70,7 @@ V_E = pygame.image.load('pasta_de_cartas/Valete_de_espadas.PNG')
 A_E = pygame.image.load('pasta_de_cartas/A_de_espadas.PNG')
 #==================================================
 
-#TODAS AS CARTAS DO NAIPE DE PAUS (CLUBS)
+#TODAS AS CARTAS DO NAIPE DE PAUS
 D_P = pygame.image.load('pasta_de_cartas/2_de_paus.PNG')
 T_P = pygame.image.load('pasta_de_cartas/3_de_paus.PNG')
 Q_P = pygame.image.load('pasta_de_cartas/4_de_paus.PNG')
@@ -90,28 +90,7 @@ A_P = pygame.image.load('pasta_de_cartas/As_de_paus (2).PNG')
 #ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS
 #ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS#ACABA DE DEFNINIR AS CARTAS E IMAGEMS
 
-#Classe das cartas que vao chegar no jogador
-class carta_pra_cima_posicao(pygame.sprite.Sprite):
-    def __init__(self,img,x_final,y_final):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.x = 25
-        self.rect.y = 0
-        self.speedx = (x_final + 10)/70
-        self.speedy = (y_final)/70
-        self.x_final = x_final
-        self.y_final = y_final
-        self.som_embaralhar = som_shuffle 
-    def update(self):
-        self.rect.y += self.speedy
-        self.rect.x += self.speedx
-        self.som_embaralhar.play()
-        if self.rect.y > self.y_final :
-            self.rect.y = self.y_final
-        if self.rect.x > self.x_final :
-            self.rect.x = self.x_final
-    
+
 # classes de valores das cartas 
 baralho = [ A_C, A_O, A_E, A_P, D_C, D_O, D_E, D_P, T_C, T_O, T_E, T_P, \
 Q_C, Q_O, Q_E, Q_P ,C_C, C_O, C_E, C_P ,S_C, S_O, S_E, S_P, \
@@ -168,11 +147,12 @@ def inicio(cartas, mao_jogador, mao_banco):
     carta4 = embaralhar(cartas, mao_banco)
     # retorna mao
     return pontuacao(carta1) + pontuacao(carta3), pontuacao(carta2) + pontuacao(carta4), carta1, carta3, carta2, carta4 
-# colors 
+# cores
 white = (255, 255, 255) 
 green = (0, 255, 0) 
 blue = (0, 0, 128)
 gray = (192,192,192)
+black = (0,0,0)
 
 # light shade of the button 
 color_light = (170,170,170) 
@@ -209,7 +189,6 @@ pygame.mixer.music.set_volume(0.03)
 som_shuffle = pygame.mixer.Sound('card_shuffle.wav.wav')
 
 # textos
-Quit = font.render('quit' , True , white)
 Blackjack = font.render('BlackJack!' , True , white)
 Comprar = font.render('Comprar' , True , white)
 Continuar = font.render('Continuar' , True , white)
@@ -230,8 +209,7 @@ background.fill((80, 150, 15))
 compra = pygame.draw.rect(background, color_dark, (20, HEIGHT - 40, 130, 40))
 continua = pygame.draw.rect(background, color_dark, (240, HEIGHT - 40, 130, 40))
 
-#Tamanho fonte
-titulo=pygame.font.SysFont("Black Jack", 40)
+
 
 #===TELA DE INICIO===
 black=(0,0,0)
@@ -239,7 +217,6 @@ tela_inicio=False
 instrucoes = True
 while (tela_inicio==False):
     window.fill(black)
-    titulo = pygame.font.SysFont("Black Jack", 40)
     titulo_na_tela = pygame.image.load('img/mesa_final.png') 
     for event in pygame.event.get():
         if event.type== pygame.MOUSEBUTTONDOWN:
@@ -269,14 +246,14 @@ while game:
         gameover = True
 
     #background needs to be redisplayed because it gets updated
-    vitoria_txt = font.render('Vitórias: {}' .format(vitoria), 1, white)
-    empate_txt = font.render('Empates: {}' .format(empate), 1, white)
-    derrota_txt = font.render('Derrotas: {}'.format(derrota), 1, white)
-    Pontu_jogador = font.render('Cartas jogador: {}' .format(jogador), 1, white)
+    vitoria_txt = font.render('Vitórias: {}' .format(vitoria), 1, black)
+    empate_txt = font.render('Empates: {}' .format(empate), 1, black)
+    derrota_txt = font.render('Derrotas: {}'.format(derrota), 1, black)
+    Pontu_jogador = font.render('Cartas jogador: {}' .format(jogador), 1, black)
     if gameover or continuar:
-        Pontu_banco = font.render('Cartas banco: {}' .format(banco), 1, white)
+        Pontu_banco = font.render('Cartas banco: {}' .format(banco), 1, black)
     elif gameover == False or continuar == False:
-        Pontu_banco = font.render('Cartas banco: {}' .format(banco - pontuacao(carta_banco2)), 1, white)
+        Pontu_banco = font.render('Cartas banco: {}' .format(banco - pontuacao(carta_banco2)), 1, black)
 
     # ----- Trata eventos
     for event in pygame.event.get():
@@ -320,7 +297,7 @@ while game:
             mao_jogador = []
             mao_banco = []
             jogador, banco, carta_jogador1, carta_jogador2, carta_banco1, carta_banco2 = inicio(cartas, mao_jogador, mao_banco)
-            reiniciarb = pygame.draw.rect(background, (80, 150, 15), (WIDTH/2, HEIGHT/2, 180, 26))
+            reiniciarb = pygame.draw.rect(background, (80, 150, 15), (WIDTH/2, HEIGHT/2 + 10, 180, 26))
 
     window.blit(background, (0, 0))
     window.blit(Pontu_jogador, (735, HEIGHT - 90))
@@ -350,4 +327,5 @@ while game:
         window.blit(mao_banco[1], (120, 20))
             
     pygame.display.update()
+
 

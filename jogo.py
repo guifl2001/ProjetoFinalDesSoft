@@ -140,11 +140,11 @@ def embaralhar(baralho, mao):
     mao.append(carta)
     return carta
 
-def inicio(cartas, mao_jogador, mao_banco):
-    carta1 = embaralhar(cartas, mao_jogador)
-    carta2 = embaralhar(cartas, mao_banco)
-    carta3 = embaralhar(cartas, mao_jogador)
-    carta4 = embaralhar(cartas, mao_banco)
+def inicio(baralho, mao_jogador, mao_banco):
+    carta1 = embaralhar(baralho, mao_jogador)
+    carta2 = embaralhar(baralho, mao_banco)
+    carta3 = embaralhar(baralho, mao_jogador)
+    carta4 = embaralhar(baralho, mao_banco)
     # retorna mao
     return pontuacao(carta1) + pontuacao(carta3), pontuacao(carta2) + pontuacao(carta4), carta1, carta3, carta2, carta4 
 # cores
@@ -188,16 +188,38 @@ pygame.mixer.music.load('tetris_beatbox.wav.wav')
 pygame.mixer.music.set_volume(0.03)
 som_shuffle = pygame.mixer.Sound('card_shuffle.wav.wav')
 
+
+class Tela():
+    def __init__(self,cor,imagem):
+        self.cor = cor
+        self.imagem = imagem
+    def loop(self):
+        tela_inicio=False
+        while(tela_inicio==False):
+            window.fill(self.cor)
+            titulo_na_tela = pygame.image.load(self.imagem)
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    tela_inicio = True
+            window.blit(titulo_na_tela,(0,0))
+            pygame.display.flip() 
+#===TELA DE INICIO===
+tela_de_inicio = Tela((0,0,0),'img/mesa_final.png').loop()
+
+#==TELA DAS INSTRUCOES==
+tela_de_instrucoes = Tela((0,0,0),'img/instrucoes_blackjack.png').loop()
+class Blitador():
+    def __init__(self,dicio):
+        self.dicio = dicio
+    def bliter(self):
+        for k,v in self.dicio.items():
+            window.blit(font.render(k, 1, black),v)
 # textos
 Blackjack = font.render('BlackJack!' , True , white)
-Comprar = font.render('Comprar' , True , white)
-Continuar = font.render('Continuar' , True , white)
-
 #TEXTO DE FINAL DE RODADA
 Gameover = font.render('Acabou a rodada' , True , white)
 #TEXTO INICIO DA RADADA
 Reiniciar = font.render('Nova rodada' , True , white)
-
 #TEXTO PARA AVISAR SE JOGAR VENCEU OU PERDEU
 Vitoria = font.render('Você ganhou!', True, white)
 Derrota = font.render('Você perdeu!', True,white)
@@ -208,31 +230,6 @@ background = background.convert()
 background.fill((80, 150, 15))
 compra = pygame.draw.rect(background, color_dark, (20, HEIGHT - 40, 130, 40))
 continua = pygame.draw.rect(background, color_dark, (240, HEIGHT - 40, 130, 40))
-
-
-
-#===TELA DE INICIO===
-black=(0,0,0)
-tela_inicio=False
-instrucoes = True
-while (tela_inicio==False):
-    window.fill(black)
-    titulo_na_tela = pygame.image.load('img/mesa_final.png') 
-    for event in pygame.event.get():
-        if event.type== pygame.MOUSEBUTTONDOWN:
-            tela_inicio=True
-            instrucoes = False
-    window.blit(titulo_na_tela,(0,0))
-    pygame.display.flip()
-
-#==TELA DAS INSTRUCOES==
-titulo_na_tela=pygame.image.load('img/instrucoes_blackjack.png').convert_alpha()
-while (instrucoes==False):
-    for event in pygame.event.get():
-        if event.type== pygame.MOUSEBUTTONDOWN:
-            instrucoes = True
-    window.blit(titulo_na_tela,(0,0))
-    pygame.display.flip()
 
 # ===== Loop principal DO blackjack=====
 game = True
@@ -246,14 +243,14 @@ while game:
         gameover = True
 
     #background needs to be redisplayed because it gets updated
-    vitoria_txt = font.render('Vitórias: {}' .format(vitoria), 1, black)
-    empate_txt = font.render('Empates: {}' .format(empate), 1, black)
-    derrota_txt = font.render('Derrotas: {}'.format(derrota), 1, black)
-    Pontu_jogador = font.render('Cartas jogador: {}' .format(jogador), 1, black)
+    vitoria_txt = 'Vitórias:' + str(vitoria)
+    empate_txt = 'Empates: ' + str(empate)
+    derrota_txt = 'Derrotas: ' + str(derrota)
+    Pontu_jogador = 'cartas Jogador: ' + str(jogador)
     if gameover or continuar:
-        Pontu_banco = font.render('Cartas banco: {}' .format(banco), 1, black)
+        Pontu_banco = 'Cartas Banco: ' + str(banco)
     elif gameover == False or continuar == False:
-        Pontu_banco = font.render('Cartas banco: {}' .format(banco - pontuacao(carta_banco2)), 1, black)
+        Pontu_banco = 'Cartas Banco: ' + str(banco - pontuacao(carta_banco2))
 
     # ----- Trata eventos
     for event in pygame.event.get():
@@ -298,15 +295,9 @@ while game:
             mao_banco = []
             jogador, banco, carta_jogador1, carta_jogador2, carta_banco1, carta_banco2 = inicio(cartas, mao_jogador, mao_banco)
             reiniciarb = pygame.draw.rect(background, (80, 150, 15), (WIDTH/2, HEIGHT/2 + 10, 180, 26))
-
     window.blit(background, (0, 0))
-    window.blit(Pontu_jogador, (735, HEIGHT - 90))
-    window.blit(Pontu_banco, (735, 40))
-    window.blit(Comprar, (25, HEIGHT - 40))
-    window.blit(Continuar, (240, HEIGHT - 40))
-    window.blit(vitoria_txt, (WIDTH - 150, HEIGHT - 90))
-    window.blit(empate_txt, (WIDTH - 150, HEIGHT - 70))
-    window.blit(derrota_txt, (WIDTH - 150,HEIGHT - 50))
+    dicionario = {vitoria_txt:(WIDTH - 150, HEIGHT - 90),empate_txt:(WIDTH - 150, HEIGHT - 70),derrota_txt:(WIDTH - 150,HEIGHT - 50),Pontu_jogador:(735, HEIGHT - 90),Pontu_banco:(735, 40),"Comprar":(25, HEIGHT - 40),"Continuar":(240, HEIGHT - 40)}
+    Blitador(dicionario).bliter()
 
     # mostrar carta do banco
     for card in mao_banco:

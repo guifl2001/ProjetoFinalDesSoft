@@ -216,6 +216,11 @@ class Blitador():
             window.blit(font.render(k, 1, black),v)
 # textos
 Blackjack = font.render('BlackJack!' , True , white)
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 #TEXTO DE FINAL DE RODADA
 Gameover = font.render('Acabou a rodada' , True , white)
 #TEXTO INICIO DA RADADA
@@ -231,6 +236,39 @@ background.fill((80, 150, 15))
 compra = pygame.draw.rect(background, color_dark, (20, HEIGHT - 40, 130, 40))
 continua = pygame.draw.rect(background, color_dark, (240, HEIGHT - 40, 130, 40))
 
+<<<<<<< Updated upstream
+=======
+
+
+
+class Tela():
+    def __init__(self,cor,imagem):
+        self.cor = cor
+        self.imagem = imagem
+    def loop(self):
+        tela_inicio=False
+        while(tela_inicio==False):
+            window.fill(self.cor)
+            titulo_na_tela = pygame.image.load(self.imagem)
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    tela_inicio = True
+            window.blit(titulo_na_tela,(0,0))
+            pygame.display.flip() 
+#===TELA DE INICIO===
+tela_de_inicio = Tela((0,0,0),'img/mesa_final.png').loop()
+
+#==TELA DAS INSTRUCOES==
+tela_de_instrucoes = Tela((0,0,0),'img/instrucoes_blackjack.png').loop()
+
+class Blitador():
+    def __init__(self,dicio):
+        self.dicio = dicio
+    def bliter(self):
+        for k,v in self.dicio.items():
+            window.blit(font.render(k, 1, black),v)
+
+>>>>>>> Stashed changes
 # ===== Loop principal DO blackjack=====
 game = True
 pygame.mixer.music.play(loops =- 1)
@@ -248,7 +286,11 @@ while game:
     derrota_txt = 'Derrotas: ' + str(derrota)
     Pontu_jogador = 'cartas Jogador: ' + str(jogador)
     if gameover or continuar:
+<<<<<<< Updated upstream
         Pontu_banco = 'Cartas Banco: ' + str(banco)
+=======
+        Pontu_banco = "Cartas Banco: " + str(banco)
+>>>>>>> Stashed changes
     elif gameover == False or continuar == False:
         Pontu_banco = 'Cartas Banco: ' + str(banco - pontuacao(carta_banco2))
 
